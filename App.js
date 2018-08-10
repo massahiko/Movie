@@ -15,23 +15,36 @@ import axios from "axios";
 export default class App extends React.Component {
   state = {
     movies: [],
-    loading: true
+    loading: true,
+    pageNumber: 1
   };
 
   componentDidMount() {
+    this.getTheMovieDb();
+  }
+
+  getTheMovieDb() {
     let url =
-      "https://api.themoviedb.org/3/movie/popular?api_key=8c3b4d0bdbabc6e6647dae9d1f09ef48";
-    axios.get(url).then(response => {
+      "https://api.themoviedb.org/3/movie/popular?api_key=8c3b4d0bdbabc6e6647dae9d1f09ef48&page=" +
+      this.state.pageNumber;
+    axios.get(url).then(({ data }) => {
+      var actualMovies = this.state.movies;
+      var movesConcatenated = actualMovies.concat(data.results);
+
+      console.log(data.results.length - 1);
+
       setTimeout(() => {
-        this.setState({ movies: response.data.results, loading: false });
-        console.log(response.data.results);
+        this.setState({
+          movies: movesConcatenated,
+          loading: false
+        });
       }, 2000);
     });
   }
 
   render() {
     return (
-      <ScrollView style={styles.container}>
+      <View style={styles.container}>
         <View style={styles.header}>
           <Image
             style={styles.imageMenu}
@@ -61,9 +74,17 @@ export default class App extends React.Component {
             data={this.state.movies}
             renderItem={({ item }) => <Movies movie={item} />}
             keyExtractor={item => item.id.toString()}
+            onEndReached={() => {
+              this.setState(
+                {
+                  pageNumber: this.state.pageNumber + 1
+                }
+                //() => this.getTheMovieDb()
+              );
+            }}
           />
         )}
-      </ScrollView>
+      </View>
     );
   }
 }

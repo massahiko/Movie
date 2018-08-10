@@ -24,7 +24,7 @@ export default class Movies extends React.Component {
               <Image
                 style={styles.imagePerc}
                 resizeMode={"cover"}
-                source={{ uri: this.props.movie.backdrop_path }}
+                //source={{ uri: this.props.movie.backdrop_path }}
               />
             </View>
             <View style={styles.descrip}>
