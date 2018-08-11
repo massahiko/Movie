@@ -1,0 +1,7 @@
+git status
+git add -A
+git commit -m "second commit"
+git push
+
+
+https://reactnavigation.org //intalação componente navegação
