@@ -21,7 +21,7 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Page 2</Text>
+        <Text>ID: {this.props.navigation.getParam("id", 0)}</Text>
       </View>
     );
   }

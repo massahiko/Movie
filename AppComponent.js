@@ -59,7 +59,7 @@ export default class App extends React.Component {
       <View style={styles.container}>
         <Button
           title={"Go to Page 2"}
-          onPress={() => this.props.navigation.navigate("Page2")}
+          onPress={() => this.props.navigation.navigate("Page2", { id: 10 })}
         />
 
         <View style={styles.header}>
